@@ -3,7 +3,6 @@
     <div class="nav">
       <Nav class="show" v-if="this.$route.path!='/'"></Nav>
     </div>
-  
     <div class="dark" v-show="$store.state.DarkAndLight"></div>
     <div class="light" v-show="!$store.state.DarkAndLight"></div>
     <div class="changenight">

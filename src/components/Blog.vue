@@ -3,6 +3,9 @@
     <div class="blogtag">
       <div class="blog_title">1、两数之和</div>
     </div>
+    <div class="author">
+      作者:{{author}}
+    </div>
 
     <div class="foot">
       <div class="time">发布时间:{{time|time_format}}</div>
@@ -38,7 +41,8 @@ export default {
     return {
       time: new Date(),
       islike:false,
-      iscollect:false
+      iscollect:false,
+      author:'孟家炜'
     };
   },
   filters: {
@@ -58,6 +62,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.author{
+  margin-top:10px ;
+  font-size: 11px;
+}
 .blog {
   margin-bottom: 10px;
   border-radius: 5px;
