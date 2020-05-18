@@ -11,11 +11,11 @@
       <div class="title_tag">选择标签</div>
       <div class="check">
         <el-checkbox-group v-model="checkList">
-          <el-checkbox label="java"></el-checkbox>
-          <el-checkbox label="JavaScript"></el-checkbox>
-          <el-checkbox label="C++"></el-checkbox>
+          <el-checkbox label="前端"></el-checkbox>
+          <el-checkbox label="后端"></el-checkbox>
+          <el-checkbox label="人工智能"></el-checkbox>
           <el-checkbox label="Go"></el-checkbox>
-          <el-checkbox label="Python"></el-checkbox>
+          <el-checkbox label="java"></el-checkbox>
         </el-checkbox-group>
       </div>
       <div class="title_tag">自定义标签</div>
@@ -36,7 +36,9 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+  props: [title,value],
   data() {
     return {
       checkList: [],
@@ -49,6 +51,7 @@ export default {
     },
     confirm() {
       this.$router.push("/home");
+      
       this.$store.commit("updateisshow", false);
     }
   }

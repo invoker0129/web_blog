@@ -18,6 +18,7 @@ import axios from 'axios'
 import Nav from "./components/nav";
 export default {
   created () {
+    localStorage.id="孟家炜"
     console.log(moment(new Date()).format("YYYY-MM-DD HH:MM"));
   },
   methods: {
@@ -30,6 +31,9 @@ export default {
   },
   components: {
     Nav
+  },
+  beforeDestroy(){
+    localStorage.clear
   }
 };
 </script>

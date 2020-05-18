@@ -1,6 +1,6 @@
 <template>
   <div class="writeBlog">
-    <confirm v-show="$store.state.isshow"></confirm>
+    <confirm :title="title" :value="value"  v-show="$store.state.isshow"></confirm>
     <div class="title">
       <input v-model="text" focus placeholder="请输入标题" class="title_box" type="text" />
       <button class="btn" @click="submit">发布</button>
@@ -66,8 +66,7 @@ export default {
       console.log(render);
     },
     submit() {
-      this.$router.push({ name: "Blogpreview", params: { value: this.value } });
-      /*  if (!this.text) {
+       if (!this.text) {
         this.$toast( "文章标题不能为空");
         return;
       } else if (!this.value) {
@@ -75,7 +74,8 @@ export default {
         return;
       }else{
         this.$store.commit('updateisshow',true);
-      } */
+      }
+      this.$router.push({ name: "Blogpreview", params: { value: this.value } });
     }
   }
 };
