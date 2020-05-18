@@ -36,9 +36,11 @@
 </template>
 
 <script>
-import axios from 'axios'
+import * as moment from "moment/moment";
+import axios from "axios";
+import URL from "@/service.config.js";
 export default {
-  props: [title,value],
+  props: ["title", "value"],
   data() {
     return {
       checkList: [],
@@ -50,9 +52,30 @@ export default {
       this.$store.commit("updateisshow", false);
     },
     confirm() {
-      this.$router.push("/home");
-      
-      this.$store.commit("updateisshow", false);
+      let time = moment(new Date()).format("YYYY-MM-DD h:mm:ss");
+
+      /*  this.$router.push("/home"); */
+      console.log(this.checkList);
+      if (this.other_tag.length != 0) {
+        let t = this.checkList.concat(this.other_tag).join("、");
+      } else {
+        let t = this.checkList.join("、");
+      }
+      axios({
+        url: URL.submitblog,
+        method: "post",
+        data: {
+          author: "孟家炜11",
+          tags: "1111122",
+          blog: "11122",
+          title: "11122",
+          createtime: time
+        }
+      }).then(response => {
+        if (response.data.code == 200) this.$router.push("/home");
+        this.checkList = [];
+        this.$store.commit("updateisshow", false);
+      });
     }
   }
 };
@@ -63,7 +86,7 @@ export default {
   width: 100%;
   height: 100%;
   position: fixed;
-  background-color:rgba(0, 0,0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;
   z-index: 6;

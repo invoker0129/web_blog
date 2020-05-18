@@ -1,6 +1,6 @@
 <template>
   <div class="writeBlog">
-    <confirm :title="title" :value="value"  v-show="$store.state.isshow"></confirm>
+    <confirm :title="text" :value="value"  v-show="$store.state.isshow"></confirm>
     <div class="title">
       <input v-model="text" focus placeholder="请输入标题" class="title_box" type="text" />
       <button class="btn" @click="submit">发布</button>
@@ -75,7 +75,7 @@ export default {
       }else{
         this.$store.commit('updateisshow',true);
       }
-      this.$router.push({ name: "Blogpreview", params: { value: this.value } });
+      
     }
   }
 };
