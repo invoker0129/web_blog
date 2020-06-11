@@ -53,6 +53,15 @@ import axios from 'axios'
 import URL from '@/service.config.js'
 import "../assets/css/LoginAndRegister.less";
 export default {
+   beforeRouteLeave (to, from, next) {
+   if(!localStorage.username&&(to.path=='/home/write'||to.path=='/home/personal')){
+     next({path:'/home/login'})
+     this.$toast('当前未登录，请先登录执行此操作')
+   }else{
+    next()
+   }
+   
+  },
   data() {
     return {
       large: 80,
@@ -83,6 +92,8 @@ export default {
             }
           }).then(response=>{
             if(response.data.code==200){
+              sessionStorage.username=this.username
+              sessionStorage.name=this.name
               this.$toast(response.data.message)
               this.$router.push('/home')
             }else{

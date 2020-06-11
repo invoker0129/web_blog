@@ -1,20 +1,27 @@
 <template>
   <div class="home">
     <div class="main">
-      <blog></blog>
-      <blog></blog>
-      <blog></blog>
-      <blog></blog>
-      <blog></blog>
-      <blog></blog>
-      <blog></blog>
-      <blog></blog>
-      <blog></blog>
-      <blog></blog>
-      <blog></blog>
-      <blog></blog>
+      <blog
+        v-for="(item,index) in listblog"
+        :key="index"
+        :username="item.author"
+        :author="item.name"
+        :title="item.title"
+        :time="item.createtime"
+        :logo="item.logo"
+      ></blog>
       <div class="pagination">
-        <el-pagination class="pa" background :page-size="10"  layout="prev, pager, next" :total="allpage"></el-pagination>
+        <el-pagination
+          @pre-click="prepage"
+          @next-click="nextpage"
+          @current-change="changepages"
+          :current-page.sync="current"
+          class="pa"
+          background
+          :page-size="10"
+          layout="prev, pager, next"
+          :total="allpage"
+        ></el-pagination>
       </div>
     </div>
     <div class="main2">
@@ -44,44 +51,84 @@
         </div>
       </div>
 
-      <div class="music">
-        <!--  <iframe
-          frameborder="no"
-          border="0"
-          marginwidth="0"
-          marginheight="0"
-          width="100%"
-          height="340px"
-          src="//music.163.com/outchain/player?type=0&id=5008882761&auto=0&height=430"
-        ></iframe>-->
-      </div>
+      <div class="music"></div>
     </div>
   </div>
 </template>
 
 <script>
+import URL from "@/service.config.js";
+import axios from "axios";
 import blog from "../components/Blog";
 export default {
+  beforeRouteLeave(to, from, next) {
+    if (
+      !sessionStorage.username &&
+      (to.path == "/home/write" || to.path == "/home/personal")
+    ) {
+      next({ path: "/home/login" });
+      this.$toast("当前未登录，请先登录执行此操作");
+    } else {
+      next();
+    }
+  },
+  created() {
+    axios({
+      url: URL.getpage,
+      method: "get",
+      params: {
+        page: 1
+      }
+    }).then(response => {
+    
+      this.listblog = response.data.data;
+      this.allpage = parseInt(response.data.message);
+    });
+  },
   components: {
     blog
   },
   data() {
     return {
-      allpage: 210,
-      tags: ["JavaScript", "Java", "C++", "Go"],
-      all_tags: ["JavaScript", "Java", "C++", "python"]
+      current: 1,
+      listblog: [],
+      author: "1",
+      time: "1",
+      title: "1",
+      allpage: 0,
+      tags: ["前端", "后端", "人工智能", "java", "Go"],
+      all_tags: ["前端", "后端", "人工智能", "java", "Go"]
     };
   },
   methods: {
+    prepage(index) {
+      this.changepages(index);
+    },
+    nextpage(index) {
+      this.changepages(index);
+    },
     close(index) {
       this.tags.length == 1
-        ? this.$toast({ title: "提示", text: "已选标签不能为空" })
+        ? this.$toast("已选标签不能为空")
         : this.tags.splice(index, 1);
     },
     insert_tag(index) {
       if (!this.tags.includes(this.all_tags[index])) {
         this.tags.push(this.all_tags[index]);
       }
+    },
+    changepages(index) {
+      axios({
+        url: URL.getpage,
+        method: "get",
+        params: {
+          page: index
+        }
+      }).then(response => {
+        console.log(response);
+        this.listblog = response.data.data;
+        this.allpage = parseInt(response.data.message);
+      });
     }
   }
 };
@@ -97,13 +144,10 @@ export default {
   .main {
     width: 55%;
     height: 40rem;
-   
     .pagination {
       width: 100%;
-     
       margin-top: 20px;
       margin-bottom: 30px;
-      
     }
   }
   .main2 {

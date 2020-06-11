@@ -5,7 +5,7 @@
     </div>
     <div class="dark" v-show="$store.state.DarkAndLight"></div>
     <div class="light" v-show="!$store.state.DarkAndLight"></div>
-    <div class="changenight">
+    <div class="changenight" v-show="this.$route.path!='/'">
       <div class="col"></div>
       <div class="circle" :class="{changelight:!$store.state.DarkAndLight}" @click="change"></div>
     </div>
@@ -17,10 +17,7 @@ import * as moment from "moment/moment";
 import axios from 'axios'
 import Nav from "./components/nav";
 export default {
-  created () {
-    localStorage.id="孟家炜"
-    console.log(moment(new Date()).format("YYYY-MM-DD HH:MM"));
-  },
+
   methods: {
     change() {
       this.$store.commit('updatedark')
@@ -32,15 +29,15 @@ export default {
   components: {
     Nav
   },
-  beforeDestroy(){
-    localStorage.clear
-  }
+  destroyed(){
+ localStorage.clear
+  },
 };
 </script>
-<style lang="less" >
+<style lang="less" > 
 .changenight {
   position: absolute;
-  display: flex;
+  display: flex;  
   flex-direction: column;
   align-items: center;
   top: 2rem;

@@ -1,12 +1,18 @@
+/*
+ * @Author: Meng Jiawei
+ * @Date: 2020-05-02 18:40:17
+ * @LastEditTime: 2020-05-25 15:36:00
+ * @FilePath: \blog\src\main.js
+ */
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import {Button,Tag,Icon,Drawer,Avatar,Checkbox,CheckboxGroup,Pagination,Select,Option,DatePicker} from 'element-ui'
+import { Input,Button, Tag, Icon, Drawer, Avatar, Checkbox, CheckboxGroup, Pagination, Select, Option, DatePicker} from 'element-ui'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import toastRegistry from './Toast/index'
-Vue.use(toastRegistry)
+Vue.use(toastRegistry).use(Input)
 
 Vue.config.productionTip = false
 Vue.use(Pagination).use(Select).use(Option).use(DatePicker)

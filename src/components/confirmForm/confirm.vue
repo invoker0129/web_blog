@@ -52,29 +52,34 @@ export default {
       this.$store.commit("updateisshow", false);
     },
     confirm() {
-      let time = moment(new Date()).format("YYYY-MM-DD h:mm:ss");
-
+      let t;
+      let time = moment(new Date()).format("YYYY-MM-DD h:mm");
       /*  this.$router.push("/home"); */
       console.log(this.checkList);
       if (this.other_tag.length != 0) {
-        let t = this.checkList.concat(this.other_tag).join("、");
-      } else {
-        let t = this.checkList.join("、");
+         t = this.checkList.concat(this.other_tag).join("、");
+      }else if(this.checkList.length==0){
+        this.$toast("请选择标签")
+        return
+      }
+      else {
+         t = this.checkList.join("、");
       }
       axios({
         url: URL.submitblog,
         method: "post",
         data: {
-          author: "孟家炜11",
-          tags: "1111122",
-          blog: "11122",
-          title: "11122",
-          createtime: time
+          author: localStorage.username,
+          tags: t,
+          blog: this.value,
+          title: this.title,
+          name:localStorage.name
         }
       }).then(response => {
-        if (response.data.code == 200) this.$router.push("/home");
+        if (response.data.code == 200) 
+        {this.$router.push("/home");
         this.checkList = [];
-        this.$store.commit("updateisshow", false);
+        this.$store.commit("updateisshow", false);}
       });
     }
   }

@@ -1,31 +1,18 @@
 <template>
-  <div class="blog">
+  <div class="blog" @click.stop="goto">
     <div class="blogtag">
-      <div class="blog_title">1、两数之和</div>
+      <div class="blog_title">{{title}}</div>
     </div>
-    <div class="author">
-      作者:{{author}}
-    </div>
-
+    <div class="author">作者:{{author}}({{username}})</div>
     <div class="foot">
-      <div class="time">发布时间:{{time|time_format}}</div>
+      <div class="time">发布时间:{{time}}</div>
       <div class="icons">
-       <!--  <div class="icon">
-          <div class="i">
-             &#xe647;
-          </div>
-         评论
-        </div> -->
-        <div class="icon" @click="collect">
-          <div class="i" :class="{red:iscollect}">      
-            &#xe687;
-          </div>
+        <div class="icon" @click.stop="collect">
+          <div class="i" :class="{red:iscollect}">&#xe687;</div>
           <div>收藏</div>
         </div>
-        <div class="icon" @click="like">
-          <div v-bind:class="{i:true,red:islike}">
-            &#xe620;
-          </div>
+        <div class="icon" @click.stop="like">
+          <div v-bind:class="{i:true,red:islike}">&#xe620;</div>
           <div class="tttt">点赞</div>
         </div>
       </div>
@@ -34,58 +21,93 @@
 </template>
 
 <script scope>
-import * as moment from "moment/moment";
-import '../assets/iconfont/icon.css'
+import axios from "axios";
+import URL from "@/service.config.js";
+import * as moment from "moment";
+import "../assets/iconfont/icon.css";
 export default {
+  props: ["title", "author", "time", "username", "logo"],
   data() {
     return {
-      time: new Date(),
-      islike:false,
-      iscollect:false,
-      author:'孟家炜'
+      islike: false,
+      iscollect: false
     };
   },
   filters: {
     time_format: function(value) {
-      return moment(value).format("YYYY-MM-DD HH:MM");
+      return moment(value).format("YYYY-MM-DD HH:MM:SS");
     }
   },
   methods: {
-      like() {
-          this.islike=!this.islike
-      },
-      collect(){
-          this.iscollect=!this.iscollect
+    like() {
+      this.islike = !this.islike;
+    },
+    collect() {
+      this.iscollect = !this.iscollect;
+    },
+    goto() {
+      if(sessionStorage.username){
+         this.$router.push({
+        path: "/home/blogpreview",
+        query: {
+          username: this.username,
+          logo: this.logo
+        }
+      });
+      }else{
+        this.$toast('当前未登录，请先登录执行此操作')
       }
-  },
+     
+      /* axios({
+        url: URL.getblog,
+        method: "get",
+        params: {
+          author: this.username,
+          createtime: this.time
+        }
+      }).then(response => {
+        console.log(response);
+        this.$router.push({
+          name: "Blogpreview",
+          params: {
+            title: this.title,
+            value: response.data.data,
+            time: this.time,
+            author:this.author,
+            name:this.username
+          }
+        });
+      }); */
+    }
+  }
 };
 </script>
 
 <style lang="less" scoped>
-.author{
-  margin-top:10px ;
+.author {
+  margin-top: 10px;
   font-size: 11px;
 }
 .blog {
   margin-bottom: 10px;
   border-radius: 5px;
-  background-color:whitesmoke;
+  background-color: rgb(255, 255, 255);
   .blog_title {
     font-size: 20px;
   }
-  .blog_title:hover{
+  .blog_title:hover {
     cursor: pointer;
   }
   .passage {
-      color:#B5B3B3;
+    color: #b5b3b3;
     margin-top: 5px;
   }
-  .passage:hover{
+  .passage:hover {
     cursor: pointer;
   }
   .foot {
     height: 20px;
-    padding-bottom:6px ;
+    padding-bottom: 6px;
     display: flex;
     flex-direction: row;
     margin-top: 15px;
@@ -106,29 +128,36 @@ export default {
         display: flex;
         flex-direction: row;
         flex: 1;
-        transition: all .5s;
+        transition: all 0.5s;
       }
-      .icon:hover{   
-          cursor: pointer;
+      .icon:hover {
+        cursor: pointer;
       }
-      .red{
-          animation: red .6s;
-          animation-fill-mode: forwards;
+      .red {
+        animation: red 0.6s;
+        animation-fill-mode: forwards;
       }
       @keyframes red {
-          0%{}
-          50%{color:red;font-size: 15px;}
-          100%{color:red;font-size: 14px;}
+        0% {
+        }
+        50% {
+          color: red;
+          font-size: 15px;
+        }
+        100% {
+          color: red;
+          font-size: 14px;
+        }
       }
     }
   }
 }
-.blog:hover{
+.blog:hover {
   cursor: pointer;
 }
-@media screen and (max-width:400px)  {
-    .icon{
-        font-size: 10px !important;
-    }
+@media screen and (max-width: 400px) {
+  .icon {
+    font-size: 10px !important;
+  }
 }
 </style>

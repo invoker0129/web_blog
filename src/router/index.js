@@ -1,3 +1,9 @@
+/*
+ * @Author: Meng Jiawei
+ * @Date: 2020-05-02 18:40:17
+ * @LastEditTime: 2020-05-25 19:42:25
+ * @FilePath: \blog\src\router\index.js
+ */ 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '../views/Index.vue'
@@ -25,7 +31,7 @@ const routes = [
   {
     path: '/home/write',
     name: 'Write',
-    component: () => import('../views/writeblog')
+    component: () => import('../views/writeblog'),
   },
   {
     path: '/home/personal',
@@ -63,7 +69,8 @@ const routes = [
     path: '/home/register',
     name: 'Register',
     component: () => import('../views/Register')
-  }
+  },
+ 
 ]
 
 const router = new VueRouter({

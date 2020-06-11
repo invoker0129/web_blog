@@ -1,9 +1,26 @@
 <template>
   <div class="writeBlog">
-    <confirm :title="text" :value="value"  v-show="$store.state.isshow"></confirm>
     <div class="title">
-      <input v-model="text" focus placeholder="请输入标题" class="title_box" type="text" />
-      <button class="btn" @click="submit">发布</button>
+      <el-input v-model="text" placeholder="请输入内容"></el-input>
+      <el-button type="primary" @click="submit">发布</el-button>
+    </div>
+    <div class="tags">
+      <el-select
+        class="se"
+        v-model="value1"
+        multiple
+        filterable
+        allow-create
+        default-first-option
+        placeholder="请选择文章标签,可自定义"
+      >
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        ></el-option>
+      </el-select>
     </div>
     <div class="main_write">
       <mavon-editor :toolbars="toolbars" class="mavon_editor" v-model="value" @change="print"></mavon-editor>
@@ -12,7 +29,9 @@
 </template>
 
 <script>
-import confirm from "../components/confirmForm/confirm";
+import * as moment from "moment/moment";
+import axios from "axios";
+import URL from "@/service.config.js";
 /* :toolbarsFlag='false'  :subfield="false" defaultOpen= "preview" */
 export default {
   beforeRouteLeave(to, from, next) {
@@ -21,6 +40,29 @@ export default {
   },
   data() {
     return {
+      options: [
+        {
+          value: "前端",
+          label: "前端"
+        },
+        {
+          value: "后端",
+          label: "后端"
+        },
+        {
+          value: "Python",
+          label: "Python"
+        },
+        {
+          value: "JavaScript",
+          label: "JavaScript"
+        },
+        {
+          value: "Java",
+          label: "Java"
+        }
+      ],
+      value1: [],
       value: "",
       text: "",
       show: true,
@@ -57,38 +99,57 @@ export default {
       }
     };
   },
-  components: {
-    confirm
-  },
+
   methods: {
     print(value, render) {
       console.log(value);
       console.log(render);
     },
     submit() {
-       if (!this.text) {
-        this.$toast( "文章标题不能为空");
+      if (!this.text) {
+        this.$toast("文章标题不能为空");
         return;
       } else if (!this.value) {
-        this.$toast("文章内容不能为空" );
+        this.$toast("文章内容不能为空");
         return;
-      }else{
-        this.$store.commit('updateisshow',true);
+      } else if (this.value1.length == 0) {
+        this.$toast("标签不能为空");
+      } else {
+        let l=new Date().getTime()
+        let tagss = this.value1.join("、");
+        axios({
+          url: URL.submitblog,
+          method: "post",
+          data: {
+            author: sessionStorage.username,
+            tags: tagss,
+            blog: this.value,
+            title: this.text,
+            name: sessionStorage.name,
+            logo:l
+          }
+        }).then(response => {
+          if (response.data.code == 200) {
+            this.$router.push("/home");
+          }
+        });
       }
-      
     }
   }
 };
 </script>
 
 <style lang="less"  scope>
+.se {
+  width: 20rem;
+}
 .title_text {
   font-size: 24px;
 }
 .writeBlog {
   width: 80%;
   margin: 5rem auto;
-  box-shadow: 10px 10px 5px #888888;
+
   .title {
     width: 100%;
     display: flex;
@@ -114,12 +175,16 @@ export default {
     }
   }
   .main_write {
+    margin-top: 3px;
     position: relative;
     z-index: 5;
   }
   .mavon_editor {
     font-family: "Times New Roman", Times, serif;
-    min-height: 200vh;
+    min-height: 600px;
   }
+}
+.tags {
+  margin-top: 2px;
 }
 </style>

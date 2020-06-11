@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       large: 60,
-      tabs: [{type:'el-icon-s-home',name:'首页',path:'/home'},{type:'el-icon-edit',name:'写博客',path:'/home/write'},{type:"el-icon-picture",name:'个人相册',path:'/home/write'},{type:'el-icon-s-order',name:'个人空间',path:'/home/write'},{type:'el-icon-user-solid',name:'登录\\注册',path:'/home/write'}]
+      tabs: [{type:'el-icon-s-home',name:'首页',path:'/home'},{type:'el-icon-edit',name:'写博客',path:'/home/write'},{type:"el-icon-picture",name:'个人相册',path:'/home/write'},{type:'el-icon-s-order',name:'个人空间',path:'/home/personal'},{type:'el-icon-user-solid',name:'登录\\注册',path:'/home/login'}]
     };
   },
   methods: {

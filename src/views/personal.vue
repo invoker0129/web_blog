@@ -21,7 +21,7 @@
 export default {
   data() {
     return {
-    change:'高冷的小明',
+    change:localStorage.name,
       large: 60,
       nav_name: [{name:"个人信息",path:'/home/personal'}, {name:"博客管理",path:'/home/personal/Blog'}, {name:"消息通知",path:'/home/personal/Talk'}, {name:"账号管理",path:'/home/personal/Count'}, {name:"我的收藏",path:'/home/personal/Blog'}]
     };

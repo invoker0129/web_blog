@@ -4,7 +4,6 @@
     <div class="text">M-Blog</div>
     <div class="go " @click="go">Go!</div>
   </div>
-  
 </div>
   
 </template>
