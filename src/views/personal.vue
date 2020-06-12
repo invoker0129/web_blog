@@ -1,3 +1,9 @@
+<!--
+ * @Author: Meng Jiawei
+ * @Date: 2020-05-11 15:52:47
+ * @LastEditTime: 2020-06-12 23:50:39
+ * @FilePath: \blog\src\views\personal.vue
+--> 
 <template>
   <div class="personal" :class="{font_dark_color:$store.state.DarkAndLight,font_light_color:!$store.state.DarkAndLight}">
     <div class="left">
@@ -40,7 +46,7 @@ export default {
   color:rgb(31, 29, 29)
 }
 .font_dark_color{
-    color:skyblue;
+    color:rgb(64, 140, 255);
 }
 .come_into{
     animation: show .3s;

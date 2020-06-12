@@ -1,8 +1,14 @@
+<!--
+ * @Author: Meng Jiawei
+ * @Date: 2020-05-05 21:33:10
+ * @LastEditTime: 2020-06-12 23:54:40
+ * @FilePath: \blog\src\views\Index.vue
+--> 
 <template>
 <div>
   <div class="main">
-    <div class="text">M-Blog</div>
-    <div class="go " @click="go">Go!</div>
+    <div class="text3">M-Blog</div>
+    <div class="go2 " @click="go">Go!</div>
   </div>
 </div>
   
@@ -61,7 +67,7 @@ export default {
   height: 100%;
   background: url(https://s1.ax1x.com/2020/05/06/YElRgK.png) center;
   z-index: -1;
-  .text {
+  .text3 {
     height: 4.5rem;
     line-height: 4.5rem;
     width: 10rem;
@@ -71,7 +77,7 @@ export default {
     font-size: 3.5rem;
     border: 2px white solid;
   }
-  .go {
+  .go2 {
     color: white;
     margin-top: 2rem;
     font-size: 12px;
@@ -85,7 +91,7 @@ export default {
     transition: all 0.8s;
     border-radius: 30px;
   }
-  .go:hover {
+  .go2:hover {
     cursor: pointer;
     background-color: rgb(129, 224, 176)
   }

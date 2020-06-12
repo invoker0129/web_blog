@@ -1,3 +1,9 @@
+<!--
+ * @Author: Meng Jiawei
+ * @Date: 2020-05-13 14:15:26
+ * @LastEditTime: 2020-06-13 00:52:01
+ * @FilePath: \blog\src\views\Register.vue
+--> 
 <template>
   <div class="login">
     <div class="photo">

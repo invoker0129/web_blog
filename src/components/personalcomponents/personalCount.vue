@@ -1,3 +1,9 @@
+<!--
+ * @Author: Meng Jiawei
+ * @Date: 2020-05-13 12:50:18
+ * @LastEditTime: 2020-06-13 00:52:39
+ * @FilePath: \blog\src\components\personalcomponents\personalCount.vue
+--> 
 <template>
     <div class="count">
         <div class="block">

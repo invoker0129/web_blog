@@ -11,7 +11,7 @@
         <span style="font-size:12px;margin-right:10px">回复</span>
         {{item.name}}
         <input v-model="childcomment" type="text" />
-        <button class="btn" @click="add()">确认</button>
+        <button class="btn" @click="add(item.name)">确认</button>
       </div>
       <div class="response" v-for="(item2,index2) in item.res" :key="index2">
           <span style="display:inline-block;width:50%">
@@ -62,7 +62,7 @@ export default {
      this.index3=-1
     this.index4=index
     },
-    add() {
+    add(name) {
       this.comments[this.index4].res.push({
         name: sessionStorage.name,
         to:name,

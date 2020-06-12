@@ -1,3 +1,9 @@
+<!--
+ * @Author: Meng Jiawei
+ * @Date: 2020-05-09 19:41:25
+ * @LastEditTime: 2020-06-13 00:52:12
+ * @FilePath: \blog\src\views\writeblog.vue
+--> 
 <template>
   <div class="writeBlog">
     <div class="title">

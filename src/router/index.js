@@ -70,6 +70,11 @@ const routes = [
     name: 'Register',
     component: () => import('../views/Register')
   },
+  {
+    path:'/home/photo',
+    name:'Photo',
+    component:()=>import('../views/personalpicture')
+  }
  
 ]
 

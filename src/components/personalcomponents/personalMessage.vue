@@ -1,3 +1,9 @@
+<!--
+ * @Author: Meng Jiawei
+ * @Date: 2020-05-11 16:59:16
+ * @LastEditTime: 2020-06-13 00:53:39
+ * @FilePath: \blog\src\components\personalcomponents\personalMessage.vue
+--> 
 <template>
   <div class="person_message">
     <div class="person_main1">

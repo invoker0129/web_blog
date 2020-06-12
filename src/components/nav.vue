@@ -18,7 +18,7 @@
       <router-link :to="'/home'">
         <i class="el-icon-s-home"></i>首页
       </router-link>
-      <router-link :to="'/home/write'">
+      <router-link :to="'/home/photo'">
         <i class="el-icon-picture"></i>个人相册
       </router-link>
       <router-link :to="'/home/write'">

@@ -1,3 +1,9 @@
+/*
+ * @Author: Meng Jiawei
+ * @Date: 2020-05-02 18:40:17
+ * @LastEditTime: 2020-06-13 00:51:47
+ * @FilePath: \blog\src\store\index.js
+ */ 
 import Vue from 'vue'
 import Vuex from 'vuex'
 

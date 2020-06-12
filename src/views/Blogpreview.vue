@@ -1,21 +1,25 @@
 <!--
  * @Author: Meng Jiawei
  * @Date: 2020-05-17 22:47:50
- * @LastEditTime: 2020-05-25 22:01:47
+ * @LastEditTime: 2020-06-12 20:22:59
  * @FilePath: \blog\src\views\Blogpreview.vue
 --> 
 <template>
-  <div class="blogpreview">
-    <div class="title">
+  <div class="blogpreview" >
+    <div class="title" v-show="!is">
       <div class="title1">{{title}}</div>
       <div class="author">{{name}}({{author}})</div>
       <div class="time">{{time}}</div>
+    </div>
+    <div class="titlesss" v-show="is">
+      <el-input v-model="title" placeholder="请输入内容"></el-input>
+      <el-button type="primary" @click="changeblog">修改</el-button>
     </div>
     <div class="blog">
       <mavon-editor
         class="mv"
         :toolbarsFlag="false"
-        :subfield="false"
+        :subfield="is"
         defaultOpen="preview"
         v-model="value"
       ></mavon-editor>
@@ -43,10 +47,18 @@ export default {
   components: {
     Comment,
   },
-  created() {
-    console.log('111')
+  mounted() {
     this.logo = this.$route.query.logo;
     this.author = this.$route.query.username;
+    console.log(this.$route.query.is)
+   if(this.$route.query.is=='true'||this.$route.query.is==true){
+    
+     this.is=true
+   }else{
+ 
+     this.is=false
+   }
+  
     axios({
       url: URL.getblog,
       method: "get",
@@ -64,6 +76,8 @@ export default {
   },
   data() {
     return {
+      text:'',
+      is:false,
       logo: "",
       value: "",
       title: "",
@@ -71,7 +85,28 @@ export default {
       author: "",
       name: ""
     };
-  }
+  },
+  methods: {
+    changeblog() {
+      console.log(this.logo)
+      axios({
+        url:URL.updateblog,
+        method:'post',
+        data:{
+          logo:this.logo,
+          title:this.title,
+          blog:this.value
+        }
+      }).then(response=>{
+        if(response.data.code==200){
+          this.$router.push("/home")
+          this.$toast("修改成功")
+        }else{
+          this.$toast("修改失败")
+        }
+      })
+    }
+  },
 };
 </script>
 
@@ -114,4 +149,28 @@ export default {
     color: black;
   }
 }
+.titlesss {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    .title_box {
+      box-shadow: -2px -2px 2px #000;
+      height: 30px;
+      width: 90%;
+      font-size: 24px;
+      border-top-left-radius: 5px;
+      border: none;
+    }
+    .btn {
+      background-color: #98d1ef;
+      border-top-right-radius: 5px;
+      width: 10%;
+      height: 30px;
+      border: none;
+      font-size: 1.5rem;
+    }
+    .btn:hover {
+      cursor: pointer;
+    }
+  }
 </style>

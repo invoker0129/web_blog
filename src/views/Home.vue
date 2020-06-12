@@ -1,5 +1,11 @@
+<!--
+ * @Author: Meng Jiawei
+ * @Date: 2020-04-07 19:32:22
+ * @LastEditTime: 2020-06-13 00:12:26
+ * @FilePath: \blog\src\views\Home.vue
+--> 
 <template>
-  <div class="home">
+  <div class="home"  v-loading.fullscreen.lock="fullscreenLoading">
     <div class="main">
       <blog
         v-for="(item,index) in listblog"
@@ -64,7 +70,7 @@ export default {
   beforeRouteLeave(to, from, next) {
     if (
       !sessionStorage.username &&
-      (to.path == "/home/write" || to.path == "/home/personal")
+      (to.path == "/home/write" || to.path == "/home/personal"||to.path=="/home/photo")
     ) {
       next({ path: "/home/login" });
       this.$toast("当前未登录，请先登录执行此操作");
@@ -80,7 +86,7 @@ export default {
         page: 1
       }
     }).then(response => {
-    
+     this.fullscreenLoading=false
       this.listblog = response.data.data;
       this.allpage = parseInt(response.data.message);
     });
@@ -90,6 +96,7 @@ export default {
   },
   data() {
     return {
+      fullscreenLoading:true,
       current: 1,
       listblog: [],
       author: "1",
@@ -118,6 +125,7 @@ export default {
       }
     },
     changepages(index) {
+      
       axios({
         url: URL.getpage,
         method: "get",
@@ -125,6 +133,8 @@ export default {
           page: index
         }
       }).then(response => {
+       
+        console.log(this.fullscreenLoading)
         console.log(response);
         this.listblog = response.data.data;
         this.allpage = parseInt(response.data.message);

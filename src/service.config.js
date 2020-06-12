@@ -1,7 +1,7 @@
 /*
  * @Author: Meng Jiawei
  * @Date: 2020-05-17 20:17:56
- * @LastEditTime: 2020-05-25 19:58:31
+ * @LastEditTime: 2020-06-12 21:15:06
  * @FilePath: \blog\src\service.config.js
  */ 
 //路由配置文件
@@ -12,6 +12,8 @@ const URL={
     submitblog:Base+'blog/submit',
     getpage:Base+'blog/page',
     getblog:Base+'blog/getblog',
-    getpersonalblog:Base+'blog/getpersonalblog'
+    getpersonalblog:Base+'blog/getpersonalblog',
+    updateblog:Base+'blog/updateblog',
+    deletepic:Base+'file/deletepic'
 }
 module.exports=URL

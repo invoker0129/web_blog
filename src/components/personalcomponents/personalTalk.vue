@@ -1,10 +1,16 @@
+<!--
+ * @Author: Meng Jiawei
+ * @Date: 2020-05-13 13:06:01
+ * @LastEditTime: 2020-06-12 23:35:14
+ * @FilePath: \blog\src\components\personalcomponents\personalTalk.vue
+--> 
 <template>
   <div class="main_block">
     <div class="friends"></div>
     <div class="message">
       <div class="message_block"></div>
       <div class="input_block">
-        <textarea class="text" style="resize:none;"></textarea>
+        <textarea class="text2" style="resize:none;"></textarea>
         <Button class="button">发送</Button>
       </div>
     </div>
@@ -41,7 +47,7 @@ export default {};
       position: relative;
       width: 100%;
       height: 20%;
-      .text {
+      .text2 {
         border: none;
         background-color: #eeeeee;
         height: 100%;

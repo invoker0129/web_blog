@@ -46,12 +46,14 @@ export default {
       this.iscollect = !this.iscollect;
     },
     goto() {
+      console.log(this.$route.path)
       if(sessionStorage.username){
          this.$router.push({
         path: "/home/blogpreview",
         query: {
           username: this.username,
-          logo: this.logo
+          logo: this.logo,
+          is:this.$route.path=='/home'?false:true
         }
       });
       }else{
@@ -90,8 +92,8 @@ export default {
 }
 .blog {
   margin-bottom: 10px;
-  border-radius: 5px;
-  background-color: rgb(255, 255, 255);
+  border-radius: 0px;
+  background-color: rgb(253, 229, 244);
   .blog_title {
     font-size: 20px;
   }

@@ -1,3 +1,9 @@
+<!--
+ * @Author: Meng Jiawei
+ * @Date: 2020-05-09 18:35:31
+ * @LastEditTime: 2020-06-13 00:53:17
+ * @FilePath: \blog\src\components\mobile_nav.vue
+--> 
 <template>
   <div class="mobile_nav">
     <div class="photo">
